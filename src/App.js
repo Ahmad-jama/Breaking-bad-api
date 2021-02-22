@@ -1,8 +1,9 @@
 import React from "react";
 import "./style.css";
-
+import Form from "./Form";
+import NoMatch from "./NoMatch";
 export default function App() {
-  const [persons, setPerson] = React.useState([]); 
+  const [persons, setPerson] = React.useState([]);
   const getData = () => {
     fetch("https://www.breakingbadapi.com/api/characters")
       .then(respon => respon.json())
@@ -23,22 +24,29 @@ export default function App() {
         />
         <h1> search Breaking Bad chrechtors </h1>
       </div>
-      <div className="container">
-        {persons.map(person => {
-          const { name, nickname, img, char_id, birthday } = person;
-
-          return (
-            <div key={char_id} className="person">
-              <div className="info">
-                <h3> name: {name} </h3>
-                <p> nickname: {nickname} </p>
-                <p> birthday: {birthday} </p>
-              </div>
-              <img src={img} alt={name} />
-            </div>
-          );
-        })}
+      <div calssName="form-container">
+        <Form setData={setPerson} />
       </div>
+      {persons.length === 0 ? (
+        <NoMatch />
+      ) : (
+        <div className="container">
+          {persons.map(person => {
+            const { name, nickname, img, char_id, birthday } = person;
+
+            return (
+              <div key={char_id} className="person">
+                <div className="info">
+                  <h3> name: {name} </h3>
+                  <p> nickname: {nickname} </p>
+                  <p> birthday: {birthday} </p>
+                </div>
+                <img src={img} alt={name} />
+              </div>
+            );
+          })}
+        </div>
+      )}
     </>
   );
 }
