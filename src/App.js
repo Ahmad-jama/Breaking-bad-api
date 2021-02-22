@@ -2,7 +2,7 @@ import React from "react";
 import "./style.css";
 
 export default function App() {
-  const [persons, setPerson] = React.useState([]);
+  const [persons, setPerson] = React.useState([]); 
   const getData = () => {
     fetch("https://www.breakingbadapi.com/api/characters")
       .then(respon => respon.json())
